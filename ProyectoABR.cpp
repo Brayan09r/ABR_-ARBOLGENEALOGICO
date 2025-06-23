@@ -90,6 +90,7 @@ bool insertarHijo(Nodo* raiz, int idPadre, int id, string nombre, int edad) {
 }
 
 // ------------------------- RECORRIDO INORDEN (Izquierda - Raíz - Derecha) -------------------------
+
 // Muestra los nodos en orden: subárbol izquierdo, raíz, subárbol derecho
 void recorridoInorden(Nodo* raiz) {
     if (raiz != NULL) {
@@ -101,6 +102,7 @@ void recorridoInorden(Nodo* raiz) {
 }
 
 // ------------------------- RECORRIDO PREORDEN (Raíz - Izquierda - Derecha) -------------------------
+
 // Muestra los nodos en orden: raíz, subárbol izquierdo, subárbol derecho
 void recorridoPreorden(Nodo* raiz) {
     if (raiz != NULL) {
@@ -112,6 +114,7 @@ void recorridoPreorden(Nodo* raiz) {
 }
 
 // ------------------------- RECORRIDO POSTORDEN (Izquierda - Derecha - Raíz) -------------------------
+
 // Muestra los nodos en orden: subárbol izquierdo, subárbol derecho, raíz
 void recorridoPostorden(Nodo* raiz) {
     if (raiz != NULL) {
