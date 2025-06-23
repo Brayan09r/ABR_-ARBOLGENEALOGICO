@@ -180,6 +180,7 @@ int ingresarEdad() {
     }
 }
 
+
 // ------------------------- FUNCIÓN PARA INGRESAR UN ID VÁLIDO -------------------------
 // Valida que el ID sea positivo y (opcionalmente) que exista o no en el árbol
 int ingresarID(Nodo* raiz, const string& mensaje, bool debeExistir = false) {
