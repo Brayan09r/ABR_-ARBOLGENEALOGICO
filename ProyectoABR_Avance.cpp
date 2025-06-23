@@ -207,3 +207,95 @@ int ingresarID(Nodo* raiz, const string& mensaje, bool debeExistir = false) {
     return id;
 }
 
+// ========================= PROGRAMA PRINCIPAL =========================
+int main() {
+    setlocale(LC_CTYPE, "Spanish");  // Configuración regional para caracteres en español
+    Nodo* raiz = NULL;  // Inicializa el árbol vacío
+
+    int opcion;
+    do {
+        // Menú principal
+        cout << "\n--- ÁRBOL GENEALÓGICO ---" << endl;
+        cout << "1. Insertar miembro raíz" << endl;
+        cout << "2. Insertar nuevo miembro" << endl;
+        cout << "3. Mostrar recorrido Inorden" << endl;
+        cout << "4. Mostrar recorrido Preorden" << endl;
+        cout << "5. Mostrar recorrido Postorden" << endl;
+        cout << "6. Mostrar ascendencia de un miembro" << endl;
+        cout << "7. Salir" << endl;
+        cout << "Seleccione una opción: ";
+        cin >> opcion;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        // Manejo de opciones
+        if (opcion == 1) {
+            if (raiz == NULL) {
+                int id = ingresarID(raiz, "Ingrese ID del ancestro más antiguo: ");
+                string nombre = ingresarNombre();
+                int edad = ingresarEdad();
+                raiz = crearNodo(id, nombre, edad);
+                cout << "\nMiembro raíz '" << nombre << "' agregado con éxito.\n";
+            } else {
+                cout << "Error: Ya existe una raíz. Solo se permite una." << endl;
+            }
+        }
+        else if (opcion == 2) {
+            if (raiz == NULL) {
+                cout << "Error: Primero debe crear el miembro raíz." << endl;
+                continue;
+            }
+            int idPadre = ingresarID(raiz, "Ingrese ID del padre: ", true);
+            int id = ingresarID(raiz, "Ingrese ID del nuevo miembro: ");
+            if (id == idPadre) {
+                cout << "Error: Un miembro no puede ser padre de sí mismo." << endl;
+                continue;
+            }
+            string nombre = ingresarNombre();
+            int edad = ingresarEdad();
+            insertarHijo(raiz, idPadre, id, nombre, edad);
+        }
+        else if (opcion == 3) {
+            if (raiz == NULL) {
+                cout << "El árbol está vacío." << endl;
+            } else {
+                cout << "\nRecorrido Inorden del árbol genealógico:\n";
+                recorridoInorden(raiz);
+            }
+        }
+        else if (opcion == 4) {
+            if (raiz == NULL) {
+                cout << "El árbol está vacío." << endl;
+            } else {
+                cout << "\nRecorrido Preorden del árbol genealógico:\n";
+                recorridoPreorden(raiz);
+            }
+        }
+        else if (opcion == 5) {
+            if (raiz == NULL) {
+                cout << "El árbol está vacío." << endl;
+            } else {
+                cout << "\nRecorrido Postorden del árbol genealógico:\n";
+                recorridoPostorden(raiz);
+            }
+        }
+        else if (opcion == 6) {
+            if (raiz == NULL) {
+                cout << "El árbol está vacío." << endl;
+                continue;
+            }
+            int idConsulta = ingresarID(raiz, "Ingrese ID del miembro para ver su ascendencia: ", true);
+            Nodo* miembro = buscarNodo(raiz, idConsulta);
+            mostrarAscendencia(miembro);
+        }
+        else if (opcion == 7) {
+            cout << "Saliendo del programa..." << endl;
+        }
+        else {
+            cout << "Opción inválida. Intente nuevamente." << endl;
+        }
+
+    } while (opcion != 7);
+
+    liberarArbol(raiz);  // Libera toda la memoria del árbol antes de salir
+    return 0;
+}
